@@ -1,110 +1,112 @@
-{% include 'header.html' %}
-{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boston House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 15px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container">
+    <h2>Boston House Price Prediction</h2>
 
-            <div class="card shadow">
-                <div class="card-body">
+    <form action="/predict" method="post">
 
-                    <h4 class="text-center mb-4">Boston Housing Price Prediction</h4>
+        <label>CRIM</label>
+        <input type="number" step="any" name="CRIM" required>
 
-                    <form action="/predict" method="post">
+        <label>ZN</label>
+        <input type="number" step="any" name="ZN" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Crime Rate (CRIM)</label>
-                                <input type="number" step="0.001" name="CRIM" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Residential Land Zoned (ZN)</label>
-                                <input type="number" step="0.1" name="ZN" class="form-control" required>
-                            </div>
-                        </div>
+        <label>INDUS</label>
+        <input type="number" step="any" name="INDUS" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Industrial Proportion (INDUS)</label>
-                                <input type="number" step="0.1" name="INDUS" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Charles River (CHAS)</label>
-                                <select name="CHAS" class="form-control" required>
-                                    <option value="0">No</option>
-                                    <option value="1">Yes</option>
-                                </select>
-                            </div>
-                        </div>
+        <label>CHAS</label>
+        <input type="number" step="any" name="CHAS" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Nitric Oxide (NOX)</label>
-                                <input type="number" step="0.001" name="NOX" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Average Rooms (RM)</label>
-                                <input type="number" step="0.1" name="RM" class="form-control" required>
-                            </div>
-                        </div>
+        <label>NOX</label>
+        <input type="number" step="any" name="NOX" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Age of Property (AGE)</label>
-                                <input type="number" step="0.1" name="AGE" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Distance to Employment (DIS)</label>
-                                <input type="number" step="0.1" name="DIS" class="form-control" required>
-                            </div>
-                        </div>
+        <label>RM</label>
+        <input type="number" step="any" name="RM" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Accessibility to Highways (RAD)</label>
-                                <input type="number" name="RAD" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Property Tax Rate (TAX)</label>
-                                <input type="number" name="TAX" class="form-control" required>
-                            </div>
-                        </div>
+        <label>AGE</label>
+        <input type="number" step="any" name="AGE" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Pupil-Teacher Ratio (PTRATIO)</label>
-                                <input type="number" step="0.1" name="PTRATIO" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Black Population Index (B)</label>
-                                <input type="number" step="0.1" name="B" class="form-control" required>
-                            </div>
-                        </div>
+        <label>DIS</label>
+        <input type="number" step="any" name="DIS" required>
 
-                        <div class="mb-3">
-                            <label>Lower Status Population % (LSTAT)</label>
-                            <input type="number" step="0.1" name="LSTAT" class="form-control" required>
-                        </div>
+        <label>RAD</label>
+        <input type="number" step="any" name="RAD" required>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success">
-                                Predict House Price
-                            </button>
-                        </div>
+        <label>TAX</label>
+        <input type="number" step="any" name="TAX" required>
 
-                    </form>
+        <label>PTRATIO</label>
+        <input type="number" step="any" name="PTRATIO" required>
 
-                    {% if prediction_text %}
-                        <div class="alert alert-info text-center mt-4">
-                            {{ prediction_text }}
-                        </div>
-                    {% endif %}
+        <label>B</label>
+        <input type="number" step="any" name="B" required>
 
-                </div>
-            </div>
+        <label>LSTAT</label>
+        <input type="number" step="any" name="LSTAT" required>
 
-        </div>
-    </div>
+        <button type="submit">Predict Price</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+
 </div>
 
-{% include 'footer.html' %}
+</body>
+</html>

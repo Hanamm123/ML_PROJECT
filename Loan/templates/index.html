@@ -1,123 +1,136 @@
-{% include 'header.html' %}
-{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Approval Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+        }
+        .container {
+            max-width: 550px;
+            background: #ffffff;
+            padding: 30px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 15px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container">
+    <h2>Loan Approval Prediction</h2>
 
-            <div class="card shadow">
-                <div class="card-body">
+    <form action="/predict" method="post">
 
-                    <h4 class="text-center mb-4">Loan Approval Prediction</h4>
+        <label>Gender</label>
+        <select name="Gender" required>
+            <option value="">Select</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
 
-                    <form action="/predict" method="post">
+        <label>Married</label>
+        <select name="Married" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Gender</label>
-                                <select name="Gender" class="form-control" required>
-                                    <option value="1">Male</option>
-                                    <option value="0">Female</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>Married</label>
-                                <select name="Married" class="form-control" required>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div>
-                        </div>
+        <label>Dependents</label>
+        <input type="number" name="Dependents" min="0" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Dependents</label>
-                                <input type="number" min="0" max="3" name="Dependents" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Education</label>
-                                <select name="Education" class="form-control" required>
-                                    <option value="1">Graduate</option>
-                                    <option value="0">Not Graduate</option>
-                                </select>
-                            </div>
-                        </div>
+        <label>Education</label>
+        <select name="Education" required>
+            <option value="">Select</option>
+            <option value="1">Graduate</option>
+            <option value="0">Not Graduate</option>
+        </select>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Self Employed</label>
-                                <select name="Self_Employed" class="form-control" required>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>Credit History</label>
-                                <select name="Credit_History" class="form-control" required>
-                                    <option value="1">Good</option>
-                                    <option value="0">Bad</option>
-                                </select>
-                            </div>
-                        </div>
+        <label>Self Employed</label>
+        <select name="Self_Employed" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Applicant Income</label>
-                                <input type="number" name="ApplicantIncome" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Coapplicant Income</label>
-                                <input type="number" name="CoapplicantIncome" class="form-control" required>
-                            </div>
-                        </div>
+        <label>Applicant Income</label>
+        <input type="number" step="any" name="ApplicantIncome" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Loan Amount</label>
-                                <input type="number" name="LoanAmount" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Loan Amount Term</label>
-                                <input type="number" name="Loan_Amount_Term" class="form-control" required>
-                            </div>
-                        </div>
+        <label>Coapplicant Income</label>
+        <input type="number" step="any" name="CoapplicantIncome" required>
 
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Property Area (Semiurban)</label>
-                                <select name="Property_Area_Semiurban" class="form-control" required>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>Property Area (Urban)</label>
-                                <select name="Property_Area_Urban" class="form-control" required>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div>
-                        </div>
+        <label>Loan Amount</label>
+        <input type="number" step="any" name="LoanAmount" required>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success">
-                                Predict Loan Status
-                            </button>
-                        </div>
+        <label>Loan Amount Term (months)</label>
+        <input type="number" step="any" name="Loan_Amount_Term" required>
 
-                    </form>
+        <label>Credit History</label>
+        <select name="Credit_History" required>
+            <option value="">Select</option>
+            <option value="1">Good (1)</option>
+            <option value="0">Bad (0)</option>
+        </select>
 
-                    {% if prediction_text %}
-                        <div class="alert alert-info text-center mt-4">
-                            {{ prediction_text }}
-                        </div>
-                    {% endif %}
+        <label>Property Area - Semiurban</label>
+        <select name="Property_Area_Semiurban" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
 
-                </div>
-            </div>
+        <label>Property Area - Urban</label>
+        <select name="Property_Area_Urban" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
 
-        </div>
-    </div>
+        <button type="submit">Check Loan Status</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+
 </div>
 
-{% include 'footer.html' %}
+</body>
+</html>
